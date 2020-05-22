@@ -1,16 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
+//written by Andrew Denman
 public class PlayerController : MonoBehaviour
 {
     public Rigidbody rb;
     public float speed;
+
+    private int winNum;
     private int count;
+    public Text countText;
+    public Text winText;
 
     private void Start()
     {
         count = 0;
+        setCountText();
+        winText.text = "";
+        winNum = 12;
     }
     private void Update()
     {
@@ -34,7 +43,16 @@ public class PlayerController : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             count++;
+            setCountText();
+        }
+    }
 
+    private void setCountText()
+    {
+        countText.text = "Count: " + count.ToString();
+        if (count >= winNum)
+        {
+            winText.text = "You Win!";
         }
     }
 }
