@@ -202,7 +202,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   maps:
-  - {fileID: 435861826594553029, guid: 11fec54b8ccc0a24f8408cda5ce86b64, type: 3}
+  - {fileID: 3329270023929073258, guid: 8dca515325069de4499ed35a03af8a59, type: 3}
   currentMapIndex: 0
   currentMap: {fileID: 0}
   spawnPoints:

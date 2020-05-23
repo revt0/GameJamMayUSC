@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
+using Mirror;
 
 //written by Andrew Denman
 public class PlayerController : MonoBehaviour
 {
+    public bool localTest;
     public Rigidbody rb;
     public float speed;
 
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
     //Fixed input for movement
     private void FixedUpdate()
     {
+        if (!localTest) return;
         //movement
         float moveHorizontal = Input.GetAxis("Horizontal");
         float moveVertical = Input.GetAxis("Vertical");
@@ -59,6 +62,8 @@ public class PlayerController : MonoBehaviour
     //Collision with pick up objects
     private void OnTriggerEnter(Collider other)
     {
+        if (!localTest && !NetworkServer.active) return;
+
         //Pick up counter
         if (other.gameObject.CompareTag("Pick Up"))
         {
