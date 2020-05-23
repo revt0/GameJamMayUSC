@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         //setCountText();
        //winText.text = "";
         winNum = 12;
-    }
+    }   
     private void Update()
     {
         
