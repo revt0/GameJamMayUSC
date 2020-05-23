@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pick Up
   - Kill Box
+  - Pickup Spawn
   layers:
   - Default
   - TransparentFX

@@ -19,6 +19,18 @@ public class PlayerController : MonoBehaviour
 
     public void ApplyMovement(InputPacket packet)
     {
+        if (speedBoost >= 180)
+        {
+            speed = defaultSpeed;
+            speedBoost = 0;
+            sbBool = false;
+            //boostRend.enabled = false;
+        }
+        else if (sbBool)
+        {
+            speedBoost++;
+        }
+
         Vector3 movement = new Vector3(packet.horizontal, 0.0f, packet.vertical);
         rb.AddForce(movement * speed);
     }
@@ -30,6 +42,7 @@ public class PlayerController : MonoBehaviour
         speedBoost = 0;
  
     }
+
     //Fixed input for movement
     private void FixedUpdate()
     {
@@ -54,7 +67,6 @@ public class PlayerController : MonoBehaviour
         }
         else if (sbBool)
         {
-
             speedBoost++;
         }
 
@@ -69,10 +81,9 @@ public class PlayerController : MonoBehaviour
         //Pick up counter
         if (other.gameObject.CompareTag("Pick Up"))
         {
+            NetworkServer.Destroy(other.gameObject);
 
-            other.gameObject.SetActive(false);
-
-            boostRend.enabled = true;
+            //boostRend.enabled = true;
             speed += defaultSpeed;
             sbBool = true;
             //setCountText();
@@ -81,18 +92,18 @@ public class PlayerController : MonoBehaviour
         //
         if (other.gameObject.CompareTag("Kill Box"))
         {
-            respawn();
+            Respawn();
         }
     }
 
-    private void respawn()
+    private void Respawn()
     {
-        resetAll();
+        ResetAll();
         transform.position = spawnPos;
 
     }
 
-    private void resetAll()
+    private void ResetAll()
     {
         rb.Sleep();
         speed = defaultSpeed;
