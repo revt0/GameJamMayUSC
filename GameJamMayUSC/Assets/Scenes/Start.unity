@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -226,7 +226,8 @@ MonoBehaviour:
   playerSpawnMethod: 0
   spawnPrefabs:
   - {fileID: 6818819240744942584, guid: 16d5f6428d198a540b2c62a938bbc4a5, type: 3}
-  autoStartClient: 1
+  - {fileID: 2512128247616707383, guid: eb72e7e58db430d4cb7fe507b21758c9, type: 3}
+  autoStartClient: 0
 --- !u!1 &930964385
 GameObject:
   m_ObjectHideFlags: 0

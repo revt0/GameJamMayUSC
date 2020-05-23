@@ -8,6 +8,8 @@ public class RoundManager : NetworkBehaviour
     [HideInInspector] public int currentMapIndex;
     [HideInInspector] public GameObject currentMap;
     [SerializeField] private Vector3[] spawnPoints;
+    [SerializeField] private Transform[] pickupSpawns;
+    [SerializeField] private GameObject pickupPrefab;
 
     private void Start()
     {
@@ -30,6 +32,37 @@ public class RoundManager : NetworkBehaviour
         print($"Load Map: {mapIndex}");
         currentMap = Instantiate(maps[mapIndex], Vector3.zero, Quaternion.identity);
         currentMapIndex = mapIndex;
+        if (NetworkServer.active)
+            SpawnPickups();
+    }
+
+    private void SpawnPickups()
+    {
+        GameObject[] pickupSpawnsGOs = GameObject.FindGameObjectsWithTag("Pickup Spawn");
+        pickupSpawns = new Transform[pickupSpawnsGOs.Length];
+        for (int i = 0; i < pickupSpawnsGOs.Length; i++)
+            pickupSpawns[i] = pickupSpawnsGOs[i].transform;
+        pickupSpawns = ShuffleTransforms(pickupSpawns);
+        int startIndex = (int)(pickupSpawns.Length * 0.3f);
+        int endIndex = (int)(pickupSpawns.Length * 0.8f);
+        for (int i = startIndex; i < endIndex; i++)
+        {
+            GameObject pickupGO = Instantiate(pickupPrefab, pickupSpawns[i].position, Quaternion.identity);
+            NetworkServer.Spawn(pickupGO);
+        }    
+    }
+
+    private Transform[] ShuffleTransforms(Transform[] arr)
+    {
+        for (int i = 0; i < arr.Length; i++)
+        {
+            int rnd = Random.Range(0, arr.Length);
+            Transform tmp = arr[rnd];
+            arr[rnd] = arr[i];
+            arr[i] = tmp;
+        }
+
+        return arr;
     }
 
     public void ClientLoadMap(NetworkConnection conn)

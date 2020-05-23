@@ -38,13 +38,13 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -202,11 +202,14 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   maps:
-  - {fileID: 3329270023929073258, guid: 8dca515325069de4499ed35a03af8a59, type: 3}
+  - {fileID: 435861826594553029, guid: 11fec54b8ccc0a24f8408cda5ce86b64, type: 3}
   currentMapIndex: 0
   currentMap: {fileID: 0}
   spawnPoints:
   - {x: 0, y: 0.5, z: 0}
+  pickupSpawns: []
+  pickupPrefab: {fileID: 2512128247616707383, guid: eb72e7e58db430d4cb7fe507b21758c9,
+    type: 3}
 --- !u!4 &1867065872
 Transform:
   m_ObjectHideFlags: 0

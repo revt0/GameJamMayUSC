@@ -24,9 +24,15 @@ public class NetworkManager : Mirror.NetworkManager
             StartCoroutine(Connect(isServer: false));
 
         if (Input.GetKeyDown(KeyCode.I))
+        {
+            NetworkManager.singleton.networkAddress = "localhost";
             StartCoroutine(Connect(isServer: true));
+        }
         else if (Input.GetKeyDown(KeyCode.L))
+        {
+            NetworkManager.singleton.networkAddress = "localhost";
             StartCoroutine(Connect(isServer: false));
+        }
     }
 
     private IEnumerator Connect(bool isServer)
