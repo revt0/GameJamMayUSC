@@ -1,16 +1,22 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    [HideInInspector] public GameObject player;
+    public GameObject player;
+
     private Vector3 offset;
 
-    private void Start()
+    // Start is called before the first frame update
+    void Start()
     {
         offset = transform.position - player.transform.position;
+
     }
 
-    private void LateUpdate()
+    // Update is called once per frame
+    void LateUpdate()
     {
         transform.position = player.transform.position + offset;
     }
