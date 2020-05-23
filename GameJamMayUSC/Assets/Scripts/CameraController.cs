@@ -2,7 +2,7 @@
 
 public class CameraController : MonoBehaviour
 {
-    [HideInInspector] public GameObject player;
+    public GameObject player;
     private Vector3 offset;
 
     private void Start()

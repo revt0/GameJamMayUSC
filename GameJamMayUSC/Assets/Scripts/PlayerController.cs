@@ -57,6 +57,8 @@ public class PlayerController : MonoBehaviour
 
             speedBoost++;
         }
+
+        
         //end speedboost
     }
     //Collision with pick up objects
