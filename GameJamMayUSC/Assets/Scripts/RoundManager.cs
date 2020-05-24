@@ -76,8 +76,8 @@ public class RoundManager : NetworkBehaviour
             winTimer = Mathf.Max(0f, winTimer - Time.deltaTime);
             if (winTimer == 0f)
             {
-                StartCoroutine(DisconnectAll());
-                //roundState = RoundState.Waiting;
+                //StartCoroutine(DisconnectAll());
+                roundState = RoundState.Waiting;
             }
         }
     }
@@ -122,14 +122,21 @@ public class RoundManager : NetworkBehaviour
         roundState = RoundState.Active;
     }
 
+    [ContextMenu("Disconnectt")]
+    public void DisconnectRestart()
+    {
+        StartCoroutine(DisconnectAll());
+    }
+
     private IEnumerator DisconnectAll()
     {
-        yield return new WaitForSeconds(6f);
+        //yield return new WaitForSeconds(6f);
         NetworkServer.DisconnectAllConnections();
         NetworkManager.singleton.StopServer();
         while (NetworkManager.singleton.isNetworkActive)
             yield return null;
         Destroy(NetworkManager.singleton.gameObject);
+        yield return new WaitForSeconds(0.3f);
         SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 

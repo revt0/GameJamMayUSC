@@ -52,7 +52,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 15
+  MaxDistance: 22.5
   Pan2D: 0
   rolloffMode: 2
   BypassEffects: 0
@@ -71,7 +71,7 @@ AudioSource:
       inWeight: 0
       outWeight: 0.9661876
     - serializedVersion: 3
-      time: 0.20542341
+      time: 0.44235426
       value: 0.9985962
       inSlope: 0.05304653
       outSlope: 0.05304653
@@ -80,22 +80,22 @@ AudioSource:
       inWeight: 0.71098953
       outWeight: 1
     - serializedVersion: 3
-      time: 0.66786253
-      value: 0.25268936
-      inSlope: -1.0861115
-      outSlope: -1.0861115
+      time: 0.76890624
+      value: 0.298954
+      inSlope: -1.5110767
+      outSlope: -1.5110767
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.4417845
-      outWeight: 0.4136397
+      inWeight: 0.2766966
+      outWeight: 0.40228942
     - serializedVersion: 3
-      time: 0.9999771
+      time: 1
       value: 0
-      inSlope: -0.37670806
-      outSlope: -0.37670806
+      inSlope: -0.5015794
+      outSlope: -0.5015794
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.4593016
+      inWeight: 0.5859908
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -214,6 +214,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0
+  clientManager: {fileID: 0}
   playerController: {fileID: 0}
   playerName: 
   skin: 0
