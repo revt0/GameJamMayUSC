@@ -69,6 +69,10 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   playerController: {fileID: 0}
+  playerName: 
+  playerNamePrefab: {fileID: 1619155771669318174, guid: 3040d8e384ac512489ea7f1a4bee3ef5,
+    type: 3}
+  playerNameOffset: {x: 0, y: 1.15, z: 0}
 --- !u!33 &6818819240744942565
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -157,8 +161,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270e44db6e1cb7f45aacad591d98b5aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  localTest: 0
   rb: {fileID: 6818819240744942566}
   speed: 10
+  spawnPos: {x: 0, y: 0, z: 0}
+  boostRend: {fileID: 0}
 --- !u!114 &-996020212315627796
 MonoBehaviour:
   m_ObjectHideFlags: 0

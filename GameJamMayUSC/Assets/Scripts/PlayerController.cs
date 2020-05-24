@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Mirror;
+using Smooth;
 
 //written by Andrew Denman
 public class PlayerController : MonoBehaviour
@@ -99,8 +100,8 @@ public class PlayerController : MonoBehaviour
     private void Respawn()
     {
         ResetAll();
-        transform.position = spawnPos;
-
+        //transform.position = spawnPos;
+        GetComponent<SmoothSyncMirror>().teleportAnyObjectFromServer(spawnPos, Quaternion.identity, transform.localScale);
     }
 
     private void ResetAll()

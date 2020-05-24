@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Mirror;
+using TMPro;
 
 public class ClientManager : NetworkBehaviour
 {
@@ -8,6 +9,7 @@ public class ClientManager : NetworkBehaviour
     [SerializeField] private GameObject playerCanvas;
     [SerializeField] private CameraController cameraController;
     [SerializeField] private InputHandler inputHandler;
+    [SerializeField] private TMP_InputField nameInput;
     private bool hasSpawned;
     private GameObject spawnedPlayer;
     private PlayerManager playerManager;
@@ -26,21 +28,22 @@ public class ClientManager : NetworkBehaviour
     public void SpawnRequest()
     {
         if (isLocalPlayer)
-            CmdSpawnRequest();
+            CmdSpawnRequest(nameInput.text);
     }
 
     [Command]
-    private void CmdSpawnRequest()
+    private void CmdSpawnRequest(string playerName)
     {
         if (!hasSpawned)
-            ServerSpawn();
+            ServerSpawn(playerName);
     }
 
-    private void ServerSpawn()
+    private void ServerSpawn(string playerName)
     {
         hasSpawned = true;
         spawnedPlayer = Instantiate(playerPrefab, RoundManager.Instance.GetSpawnPoint(), Quaternion.identity, transform);
         playerManager = spawnedPlayer.GetComponent<PlayerManager>();
+        playerManager.playerName = playerName;
         NetworkServer.Spawn(spawnedPlayer, gameObject);
         inputHandler.playerController = playerManager.GetComponent<PlayerController>();
     }
