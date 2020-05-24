@@ -2,8 +2,20 @@
 
 public class Settings : MonoBehaviour
 {
+    public static Settings Instance { get; set; }
+
     private void Awake()
     {
+        if (Instance == null)
+            Instance = this;
+        else
+        {
+            Destroy(Instance.gameObject);
+            Instance = this;
+        }
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         DontDestroyOnLoad(gameObject);
         Application.targetFrameRate = 300;
     }

@@ -14,6 +14,13 @@ public class NetworkManager : Mirror.NetworkManager
         RoundManager.Instance.ClientLoadMap(conn);
     }
 
+    public override void OnClientDisconnect(NetworkConnection conn)
+    {
+        base.OnClientDisconnect(conn);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+        Destroy(gameObject);
+    }
+
     private void Update()
     {
         if (hasSelected) return;

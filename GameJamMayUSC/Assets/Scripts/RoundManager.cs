@@ -2,6 +2,8 @@
 using Mirror;
 using TMPro;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class RoundManager : NetworkBehaviour
 {
@@ -32,11 +34,15 @@ public class RoundManager : NetworkBehaviour
         else
             Destroy(gameObject);
         if (NetworkServer.active)
+        {
             InitServer();
+        }
     }
 
     private void Update()
     {
+        if (!NetworkServer.active) return;
+
         if (clients.Count > 1 && roundState == RoundState.Waiting)
             StartRound();
         else if (roundState == RoundState.Waiting && roundInfo != "Waiting for Players...")
@@ -69,7 +75,10 @@ public class RoundManager : NetworkBehaviour
         {
             winTimer = Mathf.Max(0f, winTimer - Time.deltaTime);
             if (winTimer == 0f)
-                roundState = RoundState.Waiting;
+            {
+                StartCoroutine(DisconnectAll());
+                //roundState = RoundState.Waiting;
+            }
         }
     }
 
@@ -113,6 +122,17 @@ public class RoundManager : NetworkBehaviour
         roundState = RoundState.Active;
     }
 
+    private IEnumerator DisconnectAll()
+    {
+        yield return new WaitForSeconds(6f);
+        NetworkServer.DisconnectAllConnections();
+        NetworkManager.singleton.StopServer();
+        while (NetworkManager.singleton.isNetworkActive)
+            yield return null;
+        Destroy(NetworkManager.singleton.gameObject);
+        SceneManager.LoadScene(0, LoadSceneMode.Single);
+    }
+
     public void PlayerFinished(PlayerManager playerManager)
     {
         if (roundState != RoundState.Active) return;
@@ -128,6 +148,12 @@ public class RoundManager : NetworkBehaviour
         spawnPoints = new Vector3[spawnPointGOs.Length];
         for (int i = 0; i < spawnPointGOs.Length; i++)
             spawnPoints[i] = spawnPointGOs[i].transform.position;
+        if (spawnPointGOs.Length == 0)
+        {
+            spawnPoints = new Vector3[30];
+            for (int i = 0; i < spawnPoints.Length; i++)
+                spawnPoints[i] = new Vector3(0f, 0.5f, 0f);
+        }
     }
 
     private void SpawnPickups()
