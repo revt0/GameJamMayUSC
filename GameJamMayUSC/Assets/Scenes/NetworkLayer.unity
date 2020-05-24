@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37311953, g: 0.38074014, b: 0.3587274, a: 1}
+  m_IndirectSpecularColor: {r: 0.37311992, g: 0.38074034, b: 0.35872713, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -509,9 +509,15 @@ MonoBehaviour:
   syncInterval: 0
   maps:
   - {fileID: 3329270023929073258, guid: 8dca515325069de4499ed35a03af8a59, type: 3}
+  - {fileID: 2844873892138053579, guid: c4d8161ef9c36f64fb9e76a70c197bf5, type: 3}
+  - {fileID: 6675340325338509538, guid: 435f3bc8303df7a4988863398593f8d4, type: 3}
+  - {fileID: 111604620223843246, guid: d49f70b7b8d922247ad6c841727796d2, type: 3}
   currentMapIndex: 0
   currentMap: {fileID: 0}
   spawnPoints:
+  - {x: 0, y: 0.5, z: 0}
+  - {x: 0, y: 0.5, z: 0}
+  - {x: 0, y: 0.5, z: 0}
   - {x: 0, y: 0.5, z: 0}
   pickupSpawns: []
   pickupPrefab: {fileID: 2512128247616707383, guid: eb72e7e58db430d4cb7fe507b21758c9,
