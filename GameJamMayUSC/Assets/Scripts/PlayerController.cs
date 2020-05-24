@@ -106,7 +106,7 @@ public class PlayerController : MonoBehaviour
     public void Respawn()
     {
         //transform.position = spawnPos;
-        GetComponent<SmoothSyncMirror>().teleportAnyObjectFromServer(spawnPos, Quaternion.identity, transform.localScale);
+        GetComponent<SmoothSyncMirror>().teleportAnyObjectFromServer(GetComponent<PlayerManager>().clientManager.spawnPos, Quaternion.identity, transform.localScale);
         ResetAll();
     }
 

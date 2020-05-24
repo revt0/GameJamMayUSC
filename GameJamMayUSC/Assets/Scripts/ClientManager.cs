@@ -19,6 +19,7 @@ public class ClientManager : NetworkBehaviour
     private GameObject spawnedPlayer;
     private PlayerManager playerManager;
     private int ballNameCounter;
+    public Vector3 spawnPos;
 
     private void Start()
     {
@@ -59,7 +60,8 @@ public class ClientManager : NetworkBehaviour
     {
         hasSpawned = true;
         RoundManager.Instance.clients.Add(this);
-        spawnedPlayer = Instantiate(playerPrefab, RoundManager.Instance.GetSpawnPoint(), Quaternion.identity, transform);
+        spawnPos = RoundManager.Instance.GetSpawnPoint();
+        spawnedPlayer = Instantiate(playerPrefab, spawnPos, Quaternion.identity, transform);
         playerManager = spawnedPlayer.GetComponent<PlayerManager>();
         if (playerName.Trim() == "")
         {
@@ -67,6 +69,7 @@ public class ClientManager : NetworkBehaviour
             playerName = $"Ball {ballNameCounter}";
         }
         playerManager.playerName = playerName;
+        playerManager.clientManager = this;
         playerManager.skin = skin;
         NetworkServer.Spawn(spawnedPlayer, gameObject);
         inputHandler.playerController = playerManager.GetComponent<PlayerController>();

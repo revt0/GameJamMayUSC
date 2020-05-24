@@ -4,7 +4,7 @@ using TMPro;
 
 public class PlayerManager : NetworkBehaviour
 {
-    private ClientManager clientManager = null;
+    public ClientManager clientManager = null;
     [HideInInspector] public PlayerController playerController;
     [SyncVar(hook = nameof(SetPlayerName))] public string playerName;
     [SyncVar(hook = nameof(SetPlayerSkin))] public int skin;

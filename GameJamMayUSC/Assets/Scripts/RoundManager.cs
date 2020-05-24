@@ -96,7 +96,10 @@ public class RoundManager : NetworkBehaviour
         currentMap = Instantiate(maps[mapIndex], Vector3.zero, Quaternion.identity);
         currentMapIndex = mapIndex;
         if (NetworkServer.active)
+        {
+            SpawnPoints();
             SpawnPickups();
+        }
     }
 
     private void StartRound()
@@ -117,6 +120,14 @@ public class RoundManager : NetworkBehaviour
         roundState = RoundState.Finished;
         roundInfo = $"{playerManager.playerName} Wins!\n({roundTimer:F1} seconds)";
         winTimer = 10f;
+    }
+
+    private void SpawnPoints()
+    {
+        GameObject[] spawnPointGOs = GameObject.FindGameObjectsWithTag("Spawn Point");
+        spawnPoints = new Vector3[spawnPointGOs.Length];
+        for (int i = 0; i < spawnPointGOs.Length; i++)
+            spawnPoints[i] = spawnPointGOs[i].transform.position;
     }
 
     private void SpawnPickups()
@@ -165,6 +176,6 @@ public class RoundManager : NetworkBehaviour
 
     public Vector3 GetSpawnPoint()
     {
-        return spawnPoints[Random.Range(0, spawnPoints.Length)];
+        return spawnPoints[clients.Count - 1];
     }
 }
