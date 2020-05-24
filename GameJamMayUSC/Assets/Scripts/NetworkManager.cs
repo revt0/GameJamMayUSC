@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class NetworkManager : Mirror.NetworkManager
 {
+    [SerializeField] private bool autoStartServer;
     [SerializeField] private bool autoStartClient;
     private bool hasSelected;
 
@@ -25,7 +26,7 @@ public class NetworkManager : Mirror.NetworkManager
     {
         if (hasSelected) return;
 
-        if (isHeadless)
+        if (isHeadless || autoStartServer)
             StartCoroutine(Connect(isServer: true));
         if (autoStartClient)
             StartCoroutine(Connect(isServer: false));
