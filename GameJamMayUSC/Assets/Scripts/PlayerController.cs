@@ -88,6 +88,7 @@ public class PlayerController : MonoBehaviour
             speed += defaultSpeed;
             sbBool = true;
             //setCountText();
+            GetComponent<PlayerManager>().RpcPlayPickupAudio();
         }
 
         //
@@ -95,19 +96,25 @@ public class PlayerController : MonoBehaviour
         {
             Respawn();
         }
+
+        if (other.gameObject.CompareTag("Finish Zone"))
+        {
+            RoundManager.Instance.PlayerFinished(GetComponent<PlayerManager>());
+        }
     }
 
-    private void Respawn()
+    public void Respawn()
     {
-        ResetAll();
         //transform.position = spawnPos;
         GetComponent<SmoothSyncMirror>().teleportAnyObjectFromServer(spawnPos, Quaternion.identity, transform.localScale);
+        ResetAll();
     }
 
     private void ResetAll()
     {
         rb.Sleep();
         speed = defaultSpeed;
+        rb.velocity = Vector3.zero;
         rb.WakeUp();
     }
 }

@@ -23,6 +23,6 @@ public class InputHandler : NetworkBehaviour
     private void CmdSendInput(sbyte horizontal, sbyte vertical)
     {
         InputPacket packet = new InputPacket(horizontal, vertical);
-        if (playerController != null) playerController.ApplyMovement(packet);
+        if (playerController != null && !RoundManager.Instance.stopPlayerInput) playerController.ApplyMovement(packet);
     }
 }
