@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.32467175, g: 0.06912157, b: 0.0029064855, a: 1}
+  m_IndirectSpecularColor: {r: 0.32549095, g: 0.06912773, b: 0.0011737191, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -121,6 +121,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &353904105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 353904106}
+  - component: {fileID: 353904107}
+  m_Layer: 0
+  m_Name: Skybox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &353904106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353904105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &353904107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353904105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc933b4cbeee7d94a990943717929186, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 0.5
 --- !u!1 &573092512
 GameObject:
   m_ObjectHideFlags: 0
@@ -512,6 +556,7 @@ MonoBehaviour:
   - {fileID: 2844873892138053579, guid: c4d8161ef9c36f64fb9e76a70c197bf5, type: 3}
   - {fileID: 6675340325338509538, guid: 435f3bc8303df7a4988863398593f8d4, type: 3}
   - {fileID: 111604620223843246, guid: d49f70b7b8d922247ad6c841727796d2, type: 3}
+  - {fileID: 7846212869156131163, guid: 042d513baf5f61345a0a0bba4bcede8e, type: 3}
   currentMapIndex: 0
   currentMap: {fileID: 0}
   spawnPoints:
@@ -531,6 +576,7 @@ MonoBehaviour:
   - {fileID: 1165007462}
   - {fileID: 573092512}
   - {fileID: 1378363081}
+  - {fileID: 353904105}
   roundState: 0
   stopPlayerInput: 0
 --- !u!4 &1867065872

@@ -271,7 +271,7 @@ MonoBehaviour:
   - {fileID: 6818819240744942584, guid: 16d5f6428d198a540b2c62a938bbc4a5, type: 3}
   - {fileID: 2512128247616707383, guid: eb72e7e58db430d4cb7fe507b21758c9, type: 3}
   autoStartServer: 0
-  autoStartClient: 0
+  autoStartClient: 1
 --- !u!1 &930964385
 GameObject:
   m_ObjectHideFlags: 0

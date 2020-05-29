@@ -59,7 +59,7 @@ public class PlayerController : MonoBehaviour
 
 
         //speed boost
-        if (speedBoost >= 180)
+        if (speedBoost >= 100)
         {
             speed = defaultSpeed;
             speedBoost = 0;
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
             NetworkServer.Destroy(other.gameObject);
 
             //boostRend.enabled = true;
-            speed += defaultSpeed;
+            speed += (defaultSpeed * 0.65f);
             sbBool = true;
             //setCountText();
             GetComponent<PlayerManager>().RpcPlayPickupAudio();
