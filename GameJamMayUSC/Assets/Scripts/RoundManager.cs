@@ -19,6 +19,7 @@ public class RoundManager : NetworkBehaviour
     public Canvas roundCanvas;
     [SerializeField] private TMP_Text roundText;
     private List<GameObject> pickups = new List<GameObject>();
+    [SerializeField] private GameObject[] destroyOnServer;
 
     public enum RoundState { Waiting, Active, Finished};
     public RoundState roundState = RoundState.Waiting;
@@ -91,6 +92,10 @@ public class RoundManager : NetworkBehaviour
     {
         Application.targetFrameRate = 60;
         LoadMap();
+        foreach (GameObject go in destroyOnServer)
+            Destroy(go);
+        if (Settings.Instance != null)
+            Destroy(Settings.Instance.gameObject);
     }
 
     private void SetRoundInfo(string oldInfo, string newInfo)
@@ -101,7 +106,17 @@ public class RoundManager : NetworkBehaviour
 
     public void LoadMap(int mapIndex = -1)
     {
-        if (mapIndex == -1) mapIndex = Random.Range(0, maps.Length);
+        if (mapIndex == -1)
+        {
+            mapIndex = Random.Range(0, maps.Length);
+            if (PlayerPrefs.HasKey("LastMap") && PlayerPrefs.GetInt("LastMap") == mapIndex)
+            {
+                mapIndex++;
+                if (mapIndex >= maps.Length)
+                    mapIndex = 0;
+            }
+            PlayerPrefs.SetInt("LastMap", mapIndex);
+        }
         currentMap = Instantiate(maps[mapIndex], Vector3.zero, Quaternion.identity);
         currentMapIndex = mapIndex;
         if (NetworkServer.active)

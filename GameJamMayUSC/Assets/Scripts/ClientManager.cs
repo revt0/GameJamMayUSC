@@ -20,6 +20,8 @@ public class ClientManager : NetworkBehaviour
     private PlayerManager playerManager;
     private int ballNameCounter;
     public Vector3 spawnPos;
+    private string playerName;
+    private string address;
 
     private void Start()
     {
@@ -73,6 +75,9 @@ public class ClientManager : NetworkBehaviour
         playerManager.skin = skin;
         NetworkServer.Spawn(spawnedPlayer, gameObject);
         inputHandler.playerController = playerManager.GetComponent<PlayerController>();
+        this.playerName = playerName;
+        this.address = connectionToClient.address;
+        FileWriter.Instance.Write($"[{System.DateTime.Now}] {this.playerName} connected from ip: {this.address}");
     }
 
     public void InitPlayer(GameObject player)
@@ -92,7 +97,10 @@ public class ClientManager : NetworkBehaviour
     private void OnDestroy()
     {
         if (NetworkServer.active && RoundManager.Instance.clients.Contains(this))
+        {
+            FileWriter.Instance.Write($"[{System.DateTime.Now}] {this.playerName} disconnected from ip: {this.address}");
             RoundManager.Instance.clients.Remove(this);
+        }
     }
 
     public void Respawn()

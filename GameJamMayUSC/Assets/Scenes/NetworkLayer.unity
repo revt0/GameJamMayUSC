@@ -526,6 +526,11 @@ MonoBehaviour:
   roundInfo: 
   roundCanvas: {fileID: 573092515}
   roundText: {fileID: 869002325}
+  destroyOnServer:
+  - {fileID: 1979110732}
+  - {fileID: 1165007462}
+  - {fileID: 573092512}
+  - {fileID: 1378363081}
   roundState: 0
   stopPlayerInput: 0
 --- !u!4 &1867065872
