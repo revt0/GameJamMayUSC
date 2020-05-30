@@ -77,7 +77,9 @@ public class RoundManager : NetworkBehaviour
             winTimer = Mathf.Max(0f, winTimer - Time.deltaTime);
             if (winTimer == 0f)
             {
-                //StartCoroutine(DisconnectAll());
+                LoadMap();
+                foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+                    ClientLoadMap(conn);
                 roundState = RoundState.Waiting;
             }
         }
@@ -106,6 +108,8 @@ public class RoundManager : NetworkBehaviour
 
     public void LoadMap(int mapIndex = -1)
     {
+        if (currentMap != null)
+            Destroy(currentMap);
         if (mapIndex == -1)
         {
             mapIndex = Random.Range(0, maps.Length);

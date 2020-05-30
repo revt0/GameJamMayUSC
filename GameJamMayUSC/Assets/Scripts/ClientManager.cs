@@ -77,7 +77,7 @@ public class ClientManager : NetworkBehaviour
         inputHandler.playerController = playerManager.GetComponent<PlayerController>();
         this.playerName = playerName;
         this.address = connectionToClient.address;
-        FileWriter.Instance.Write($"[{System.DateTime.Now}] {this.playerName} connected from ip: {this.address}");
+        FileWriter.Instance.Write($"[{System.DateTime.Now.AddHours(-4)} EST] {this.playerName} connected from ip: {this.address}");
     }
 
     public void InitPlayer(GameObject player)
@@ -98,7 +98,7 @@ public class ClientManager : NetworkBehaviour
     {
         if (NetworkServer.active && RoundManager.Instance.clients.Contains(this))
         {
-            FileWriter.Instance.Write($"[{System.DateTime.Now}] {this.playerName} disconnected from ip: {this.address}");
+            FileWriter.Instance.Write($"[{System.DateTime.Now.AddHours(-4)} EST] {this.playerName} disconnected from ip: {this.address}");
             RoundManager.Instance.clients.Remove(this);
         }
     }
