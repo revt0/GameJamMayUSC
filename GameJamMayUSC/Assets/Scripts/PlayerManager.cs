@@ -64,7 +64,7 @@ public class PlayerManager : NetworkBehaviour
     [ClientRpc]
     public void RpcPlayPickupAudio()
     {
-        //pickupSource.pitch = Random.Range(1f, 1.2f);
-        pickupSource.PlayOneShot(pickupSource.clip);
+        if (!pickupSource.isPlaying)
+            pickupSource.PlayOneShot(pickupSource.clip);
     }
 }

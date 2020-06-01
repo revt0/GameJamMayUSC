@@ -57,7 +57,6 @@ public class PlayerController : MonoBehaviour
         rb.AddForce(movement * speed);
         //end movement
 
-
         //speed boost
         if (speedBoost >= 100)
         {
@@ -105,8 +104,8 @@ public class PlayerController : MonoBehaviour
 
     public void Respawn()
     {
-        //transform.position = spawnPos;
-        GetComponent<SmoothSyncMirror>().teleportAnyObjectFromServer(GetComponent<PlayerManager>().clientManager.spawnPos, Quaternion.identity, transform.localScale);
+        Vector3 spawnPoint = RoundManager.Instance.GetSpawnPoint();
+        GetComponent<SmoothSyncMirror>().teleportAnyObjectFromServer(spawnPoint, Quaternion.identity, transform.localScale);
         ResetAll();
     }
 

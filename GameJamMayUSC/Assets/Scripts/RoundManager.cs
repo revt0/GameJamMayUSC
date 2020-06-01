@@ -2,7 +2,6 @@
 using Mirror;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class RoundManager : NetworkBehaviour
@@ -27,6 +26,7 @@ public class RoundManager : NetworkBehaviour
     [HideInInspector] public bool stopPlayerInput;
     private float roundTimer;
     private float winTimer;
+    private int spawnPointIndex;
 
     private void Start()
     {
@@ -76,12 +76,7 @@ public class RoundManager : NetworkBehaviour
         {
             winTimer = Mathf.Max(0f, winTimer - Time.deltaTime);
             if (winTimer == 0f)
-            {
-                LoadMap();
-                foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
-                    ClientLoadMap(conn);
-                roundState = RoundState.Waiting;
-            }
+                LoadMapRealtime();
         }
     }
 
@@ -93,7 +88,7 @@ public class RoundManager : NetworkBehaviour
     public void InitServer()
     {
         Application.targetFrameRate = 60;
-        LoadMap();
+        StartCoroutine(LoadMap());
         foreach (GameObject go in destroyOnServer)
             Destroy(go);
         if (Settings.Instance != null)
@@ -106,7 +101,14 @@ public class RoundManager : NetworkBehaviour
         roundText.text = newInfo;
     }
 
-    public void LoadMap(int mapIndex = -1)
+    [ContextMenu("Load a new random map in real-time")]
+    public void LoadMapRealtime()
+    {
+        //roundState = RoundState.Waiting;
+        StartCoroutine(LoadMap(startRound: true));
+    }
+
+    IEnumerator LoadMap(int mapIndex = -1, bool startRound = false)
     {
         if (currentMap != null)
             Destroy(currentMap);
@@ -123,10 +125,15 @@ public class RoundManager : NetworkBehaviour
         }
         currentMap = Instantiate(maps[mapIndex], Vector3.zero, Quaternion.identity);
         currentMapIndex = mapIndex;
+        yield return null;
         if (NetworkServer.active)
         {
             SpawnPoints();
             SpawnPickups();
+            foreach (NetworkConnectionToClient conn in NetworkServer.connections.Values)
+                ClientLoadMap(conn);
+            if (startRound)
+                StartRound();
         }
     }
 
@@ -139,24 +146,6 @@ public class RoundManager : NetworkBehaviour
         countdownTimer = 5f;
         roundTimer = 0f;
         roundState = RoundState.Active;
-    }
-
-    [ContextMenu("Disconnectt")]
-    public void DisconnectRestart()
-    {
-        StartCoroutine(DisconnectAll());
-    }
-
-    private IEnumerator DisconnectAll()
-    {
-        //yield return new WaitForSeconds(6f);
-        NetworkServer.DisconnectAllConnections();
-        NetworkManager.singleton.StopServer();
-        while (NetworkManager.singleton.isNetworkActive)
-            yield return null;
-        Destroy(NetworkManager.singleton.gameObject);
-        yield return new WaitForSeconds(0.3f);
-        SceneManager.LoadScene(0, LoadSceneMode.Single);
     }
 
     public void PlayerFinished(PlayerManager playerManager)
@@ -180,6 +169,7 @@ public class RoundManager : NetworkBehaviour
             for (int i = 0; i < spawnPoints.Length; i++)
                 spawnPoints[i] = new Vector3(0f, 0.5f, 0f);
         }
+        spawnPointIndex = 0;
     }
 
     private void SpawnPickups()
@@ -222,12 +212,14 @@ public class RoundManager : NetworkBehaviour
     [TargetRpc]
     private void TargetLoadMap(NetworkConnection target, int mapIndex)
     {
-        print("Load Map from Server");
-        LoadMap(mapIndex);
+        StartCoroutine(LoadMap(mapIndex));
     }
 
     public Vector3 GetSpawnPoint()
     {
-        return spawnPoints[clients.Count - 1];
+        spawnPointIndex++;
+        if (spawnPointIndex >= spawnPoints.Length)
+            spawnPointIndex = 0;
+        return spawnPoints[spawnPointIndex - 1];
     }
 }

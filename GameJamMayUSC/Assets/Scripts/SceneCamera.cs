@@ -8,6 +8,9 @@ public class SceneCamera : MonoBehaviour
 
     private void Awake()
     {
+        if (CameraController.Instance != null && CameraController.Instance.gameObject.activeInHierarchy)
+            gameObject.SetActive(false);
+
         if (NetworkServer.active)
         {
             if (directionalLight != null) Destroy(directionalLight);
